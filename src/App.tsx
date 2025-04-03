@@ -1,5 +1,14 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TitleScreen from './pages/TitleScreen';
+
 function App() {
-  return <h1>Perception</h1>;
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<TitleScreen />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
