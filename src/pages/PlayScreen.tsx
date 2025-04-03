@@ -4,7 +4,7 @@ const TitleScreen = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="page">
       <h1>Perception</h1>
       <button onClick={() => navigate('/host')}>Host Game</button>
       <br />
