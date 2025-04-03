@@ -6,9 +6,9 @@ const TitleScreen = () => {
   return (
     <div>
       <h1>Perception</h1>
-      <button onClick={() => navigate('/play')}>Play Game</button>
+      <button onClick={() => navigate('/host')}>Host Game</button>
       <br />
-      <button onClick={() => navigate('/how-to')}>How to Play</button>
+      <button onClick={() => navigate('/join')}>Join Game</button>
     </div>
   );
 };
