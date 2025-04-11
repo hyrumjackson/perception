@@ -14,7 +14,7 @@ const HostLobby = () => {
                 <li>Charlie</li>
                 <li>David</li>
             </ul>
-            <button onClick={() => navigate('/game-settings')}>Create Game</button>
+            <button onClick={() => navigate('/game-settings')}>Start Game</button>
         </div>
     );
 };
