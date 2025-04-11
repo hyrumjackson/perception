@@ -1,50 +1,63 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useGame } from '../context/GameContext';
+import { Player } from '../context/gameTypes';
 
 const PlayerInfo = () => {
     const navigate = useNavigate();
+    const { setPlayer } = useGame();
+
+    const [name, setName] = useState('');
+    const [avatar, setAvatar] = useState('🐶');
+    const gameId = 'BYU25'; // This will be changed later
+
+    const handleJoinGame = () => {
+        if (!name.trim()) return;
+    
+        const newPlayer: Player = {
+            id: crypto.randomUUID(),
+            gameId,
+            isHost: false,
+            name,
+            avatarId: avatar,
+            score: 0,
+            vote: 0,
+            hasVoted: false,
+        };
+    
+        setPlayer(newPlayer);
+        navigate('/lobby');
+      };
 
     return (
         <div className="page">
             <h2>Enter Name</h2>
-            <input type="text" placeholder="Your name" />
+            <input
+                type="text"
+                placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
             <br />
             <br />
             <h2>Select Avatar</h2>
             <div>
-                <label>
-                    <input type="radio" name="avatar" value="avatar1" />
-                    🐶
+                {['🐶', '🐱', '🐸', '🐵', '🦊', '🐯', '🐼', '🐧'].map((icon, i) => (
+                <label key={i}>
+                    <input
+                    type="radio"
+                    name="avatar"
+                    value={icon}
+                    checked={avatar === icon}
+                    onChange={() => setAvatar(icon)}
+                    />
+                    <span>{icon}</span>
                 </label>
-                <label>
-                    <input type="radio" name="avatar" value="avatar2" />
-                    🐱
-                </label>
-                <label>
-                    <input type="radio" name="avatar" value="avatar3" />
-                    🐸
-                </label>
-                <label>
-                    <input type="radio" name="avatar" value="avatar4" />
-                    🐵
-                </label>
-                <label>
-                    <input type="radio" name="avatar" value="avatar5" />
-                    🦊
-                </label>
-                <label>
-                    <input type="radio" name="avatar" value="avatar6" />
-                    🐯
-                </label>
-                <label>
-                    <input type="radio" name="avatar" value="avatar7" />
-                    🐼
-                </label>
-                <label>
-                    <input type="radio" name="avatar" value="avatar8" />
-                    🐧
-                </label>
+                ))}
             </div>
-            <button onClick={() => navigate('/lobby')}>Join Lobby</button>
+            <button onClick={handleJoinGame}>
+                Join Game
+            </button>
         </div>
     );
 };

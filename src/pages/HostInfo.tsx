@@ -55,7 +55,7 @@ const HostInfo = () => {
                 </label>
                 ))}
             </div>
-            <button onClick={handleCreateGame} style={{ marginTop: '2rem' }}>
+            <button onClick={handleCreateGame}>
                 Create Game
             </button>
         </div>
