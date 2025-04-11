@@ -8,7 +8,7 @@ const PlayerLobby = () => {
     return (
         <div className="page">
             <h2>Code</h2>
-            <p>BYU25</p>
+            <p>{player?.gameId || '...'}</p>
             <h2>Players</h2>
             <ul>
                 {player ? (

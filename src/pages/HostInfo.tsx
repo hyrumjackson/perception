@@ -3,13 +3,25 @@ import { useState } from 'react';
 import { useGame } from '../context/GameContext';
 import { Player } from '../context/gameTypes';
 
+const generateGameCode = () => {
+    const letters = Array.from({ length: 3 }, () =>
+      String.fromCharCode(65 + Math.floor(Math.random() * 26))
+    ).join('');
+  
+    const number = Math.floor(Math.random() * 100)
+    .toString()
+    .padStart(2, '0');
+  
+    return `${letters}${number}`;
+};
+
 const HostInfo = () => {
     const navigate = useNavigate();
     const { setPlayer } = useGame();
 
     const [name, setName] = useState('');
     const [avatar, setAvatar] = useState('🐶');
-    const gameId = 'BYU25';
+    const [gameId] = useState(generateGameCode());
 
     const handleCreateGame = () => {
         if (!name.trim()) return;

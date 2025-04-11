@@ -1,15 +1,16 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useGame } from '../context/GameContext';
 import { Player } from '../context/gameTypes';
 
 const PlayerInfo = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { setPlayer } = useGame();
 
     const [name, setName] = useState('');
     const [avatar, setAvatar] = useState('🐶');
-    const gameId = 'BYU25'; // This will be changed later
+    const gameId = location.state?.gameCode || 'UNKNOWN';
 
     const handleJoinGame = () => {
         if (!name.trim()) return;
