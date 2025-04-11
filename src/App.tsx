@@ -6,6 +6,7 @@ import HostLobby from './pages/HostLobby';
 import GameSettings from './pages/GameSettings';
 import HowToPlay from './pages/HowToPlay';
 import EnterCode from './pages/EnterCode';
+import PlayerInfo from './pages/PlayerInfo';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/play" element={<PlayScreen />} />
         <Route path="/code" element={<EnterCode />} />
         <Route path="/host" element={<HostInfo />} />
+        <Route path="/info" element={<PlayerInfo />} />
         <Route path="/host-lobby" element={<HostLobby />} />
         <Route path="/game-settings" element={<GameSettings />} />
         <Route path="/how-to-play" element={<HowToPlay />} />
