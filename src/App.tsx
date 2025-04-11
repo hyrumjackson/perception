@@ -9,6 +9,7 @@ import EnterCode from './pages/EnterCode';
 import PlayerInfo from './pages/PlayerInfo';
 import PlayerLobby from './pages/PlayerLobby';
 import Question from './pages/Question';
+import Waiting from './pages/WaitingScreen';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/game-settings" element={<GameSettings />} />
         <Route path="/how-to-play" element={<HowToPlay />} />
         <Route path="/question" element={<Question />} />
+        <Route path="/waiting" element={<Waiting />} />
       </Routes>
     </Router>
   );
