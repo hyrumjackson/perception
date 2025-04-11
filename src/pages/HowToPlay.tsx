@@ -11,7 +11,7 @@ const HowToPlay = () => {
         <br />
         (For now, imagine a cool video or animation here!)
       </p>
-      <button onClick={() => navigate('/prompt-voting')}>Continue</button>
+      <button onClick={() => navigate('/question')}>Continue</button>
     </div>
   );
 };
