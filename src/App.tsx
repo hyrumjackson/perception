@@ -4,6 +4,7 @@ import PlayScreen from './pages/PlayScreen';
 import HostInfo from './pages/HostInfo';
 import HostLobby from './pages/HostLobby';
 import GameSettings from './pages/GameSettings';
+import HowToPlay from './pages/HowToPlay';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/host" element={<HostInfo />} />
         <Route path="/host-lobby" element={<HostLobby />} />
         <Route path="/game-settings" element={<GameSettings />} />
+        <Route path="/how-to-play" element={<HowToPlay />} />
       </Routes>
     </Router>
   );
