@@ -10,6 +10,9 @@ import PlayerInfo from './pages/PlayerInfo';
 import PlayerLobby from './pages/PlayerLobby';
 import Question from './pages/Question';
 import Waiting from './pages/WaitingScreen';
+import RoundResults from './pages/RoundResults';
+import FinalResults from './pages/FinalResults';
+import EndScreen from './pages/EndScreen';
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
         <Route path="/how-to-play" element={<HowToPlay />} />
         <Route path="/question" element={<Question />} />
         <Route path="/waiting" element={<Waiting />} />
+        <Route path="/round-results" element={<RoundResults />} />
+        <Route path="/final-results" element={<FinalResults />} />
+        <Route path="/end" element={<EndScreen />} />
       </Routes>
     </Router>
   );
