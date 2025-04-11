@@ -8,7 +8,7 @@ const TitleScreen = () => {
       <h1>Perception</h1>
       <button onClick={() => navigate('/host')}>Host Game</button>
       <br />
-      <button onClick={() => navigate('/join')}>Join Game</button>
+      <button onClick={() => navigate('/code')}>Join Game</button>
     </div>
   );
 };
