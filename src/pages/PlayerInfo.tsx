@@ -6,7 +6,7 @@ import { Player } from '../context/gameTypes';
 const PlayerInfo = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { setPlayer } = useGame();
+    const { setPlayer, setPlayers } = useGame();
 
     const [name, setName] = useState('');
     const [avatar, setAvatar] = useState('🐶');
@@ -25,8 +25,26 @@ const PlayerInfo = () => {
             vote: 0,
             hasVoted: false,
         };
+
+        const fakeNames = ['Alice', 'Bob', 'Charlie'];
+        const fakeAvatars = ['🐵', '🐱', '🐸'];
+
+        const fakePlayers: Player[] = fakeNames.map((name, i) => ({
+            id: crypto.randomUUID(),
+            gameId,
+            isHost: false,
+            name,
+            avatarId: fakeAvatars[i],
+            score: 0,
+            vote: 0,
+            hasVoted: false,
+        }));
+
+        const hostIndex = Math.floor(Math.random() * fakePlayers.length);
+        fakePlayers[hostIndex].isHost = true;
     
         setPlayer(newPlayer);
+        setPlayers([newPlayer, ...fakePlayers]);
         navigate('/lobby');
       };
 

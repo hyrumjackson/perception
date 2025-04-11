@@ -3,7 +3,15 @@ import { useGame } from '../context/GameContext';
 
 const PlayerLobby = () => {
     const navigate = useNavigate();
-    const { player } = useGame();
+    const { player, players } = useGame();
+
+    const sortedPlayers = [...players].sort((a, b) => {
+        if (a.isHost) return -1;
+        if (b.isHost) return 1;
+        if (a.id === player?.id) return -1;
+        if (b.id === player?.id) return 1;
+        return 0;
+      });
 
     return (
         <div className="page">
@@ -11,18 +19,14 @@ const PlayerLobby = () => {
             <p>{player?.gameId || '...'}</p>
             <h2>Players</h2>
             <ul>
-                {player ? (
-                    <li>
-                        <span>
-                            {player.avatarId}
-                        </span>
-                        {player.name}
+                {sortedPlayers.map((p) => (
+                    <li key={p.id}>
+                        <span>{p.avatarId}</span>
+                        {p.name} {p.isHost && '(Host)'}
                     </li>
-                ) : (
-                    <li>Loading player...</li>
-                )}
+                ))}
             </ul>
-            <button onClick={() => navigate('/game-settings')}>Start Game</button>
+            <button onClick={() => navigate('/how-to-play')}>Start Game</button>
         </div>
     );
 };
