@@ -3,7 +3,7 @@ import { useGame } from '../context/GameContext';
 
 const HostLobby = () => {
     const navigate = useNavigate();
-    const { player } = useGame();
+    const { player, players } = useGame();
 
     return (
         <div className="page">
@@ -11,16 +11,12 @@ const HostLobby = () => {
             <p>{player?.gameId || '...'}</p>
             <h2>Players</h2>
             <ul>
-                {player ? (
-                    <li>
-                        <span>
-                            {player.avatarId}
-                        </span>
-                        {player.name} (Host)
+                {players.map((p) => (
+                    <li key={p.id}>
+                        <span>{p.avatarId}</span>
+                        {p.name} {p.isHost && '(Host)'}
                     </li>
-                ) : (
-                    <li>Loading player...</li>
-                )}
+                ))}
             </ul>
             <button onClick={() => navigate('/game-settings')}>Start Game</button>
         </div>

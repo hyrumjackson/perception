@@ -17,7 +17,7 @@ const generateGameCode = () => {
 
 const HostInfo = () => {
     const navigate = useNavigate();
-    const { setPlayer } = useGame();
+    const { setPlayer, setPlayers } = useGame();
 
     const [name, setName] = useState('');
     const [avatar, setAvatar] = useState('🐶');
@@ -36,8 +36,23 @@ const HostInfo = () => {
             vote: 0,
             hasVoted: false,
         };
+
+        const fakeNames = ['Alice', 'Bob', 'Charlie'];
+        const fakeAvatars = ['🐵', '🐱', '🐸'];
+
+        const fakePlayers: Player[] = fakeNames.map((name, i) => ({
+            id: crypto.randomUUID(),
+            gameId,
+            isHost: false,
+            name,
+            avatarId: fakeAvatars[i],
+            score: 0,
+            vote: 0,
+            hasVoted: false,
+        }));
     
         setPlayer(newPlayer);
+        setPlayers([newPlayer, ...fakePlayers]);
         navigate('/host-lobby');
       };
 

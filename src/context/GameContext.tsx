@@ -6,6 +6,8 @@ interface GameContextType {
   setGame: (game: Game) => void;
   player: Player | null;
   setPlayer: (player: Player) => void;
+  players: Player[];
+  setPlayers: (players: Player[]) => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -13,9 +15,10 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [game, setGame] = useState<Game | null>(null);
   const [player, setPlayer] = useState<Player | null>(null);
+  const [players, setPlayers] = useState<Player[]>([]);
 
   return (
-    <GameContext.Provider value={{ game, setGame, player, setPlayer }}>
+    <GameContext.Provider value={{ game, setGame, player, setPlayer, players, setPlayers }}>
       {children}
     </GameContext.Provider>
   );
