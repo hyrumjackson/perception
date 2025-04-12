@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGame } from '../context/GameContext';
+import { generatePromptIds } from '../utils/generatePromptIds';
 
 const PlayerLobby = () => {
   const navigate = useNavigate();
-  const { player, players } = useGame();
+  const { player, players, game, setGame } = useGame();
 
   const [visiblePlayers, setVisiblePlayers] = useState<string[]>([]);
   const [status, setStatus] = useState('Waiting for host...');
@@ -12,7 +13,22 @@ const PlayerLobby = () => {
   useEffect(() => {
     if (!player) return;
 
-    // Always show host and current player immediately
+    if (!game) {
+        const host = players.find(p => p.isHost);
+        const promptIds = generatePromptIds(5);
+      
+        setGame({
+          id: player.gameId,
+          hostId: host?.id || 'unknown',
+          playerCount: players.length,
+          promptGen: true,
+          promptIds,
+          roundCount: 5,
+          currentRound: 1,
+          status: 'intro',
+        });
+      }
+
     const host = players.find(p => p.isHost);
     const visible = new Set<string>();
 
@@ -21,7 +37,6 @@ const PlayerLobby = () => {
 
     setVisiblePlayers(Array.from(visible));
 
-    // Reveal other players (not host or current player)
     const others = players.filter(p => !visible.has(p.id));
 
     const timeouts: NodeJS.Timeout[] = [];
@@ -39,7 +54,7 @@ const PlayerLobby = () => {
     return () => {
       timeouts.forEach(clearTimeout);
     };
-  }, [player, players]);
+  }, [player, players, game, setGame]);
 
   const allPlayersVisible = visiblePlayers.length === players.length;
 
@@ -54,7 +69,6 @@ const PlayerLobby = () => {
     return () => clearTimeout(timeout);
   }, [allPlayersVisible, navigate]);
 
-  // Host always comes first, followed by others in reveal order
   const sortedVisible = visiblePlayers
     .map(id => players.find(p => p.id === id))
     .filter((p): p is NonNullable<typeof p> => !!p)
@@ -73,7 +87,7 @@ const PlayerLobby = () => {
       <ul>
         {sortedVisible.map(p => (
           <li key={p.id}>
-            <span style={{ marginRight: '0.5rem' }}>{p.avatarId}</span>
+            <span>{p.avatarId}</span>
             {p.name} {p.isHost && '(Host)'}
           </li>
         ))}
