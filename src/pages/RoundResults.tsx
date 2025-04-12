@@ -3,7 +3,7 @@ import { useGame } from '../context/GameContext';
 
 const RoundResults = () => {
   const navigate = useNavigate();
-  const { game, players, prompt } = useGame();
+  const { game, players, setPlayers, prompt } = useGame();
 
   if (!prompt || !game) return <p>Loading results...</p>;
 
@@ -16,6 +16,23 @@ const RoundResults = () => {
   });
 
   const handleContinue = () => {
+    const voteCounts: Record<number, number> = {};
+    players.forEach(p => {
+      voteCounts[p.vote] = (voteCounts[p.vote] || 0) + 1;
+    });
+
+    const updatedPlayers = players.map(p => {
+      const isUnique = voteCounts[p.vote] === 1;
+      return {
+        ...p,
+        score: isUnique ? p.score + 1 : p.score,
+        vote: 0,
+        hasVoted: false
+      };
+    });
+  
+    setPlayers(updatedPlayers);
+  
     if (game.currentRound < game.roundCount) {
       game.currentRound += 1;
       navigate('/question');

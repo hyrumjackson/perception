@@ -15,7 +15,7 @@ const Waiting = () => {
     setWaitingPlayers(fakePlayerNames);
 
     fakePlayers.forEach((p) => {
-      const delay = Math.random() * 10000;
+      const delay = Math.random() * 5000;
       setTimeout(() => {
         setWaitingPlayers(prev => prev.filter(name => name !== p.name));
       }, delay);
