@@ -26,7 +26,7 @@ function App() {
         <Route path="/host-lobby" element={<HostLobby />} />
         <Route path="/lobby" element={<PlayerLobby />} />
         <Route path="/game-settings" element={<GameSettings />} />
-        <Route path="/how-to-play" element={<HowToPlay />} />
+        <Route path="/how-to" element={<HowToPlay />} />
         <Route path="/question" element={<Question />} />
         <Route path="/waiting" element={<Waiting />} />
         <Route path="/round-results" element={<RoundResults />} />

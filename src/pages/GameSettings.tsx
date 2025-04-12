@@ -20,7 +20,7 @@ const GameSettings = () => {
         const newGame: Game = {
             id: player.gameId,
             hostId: player.id,
-            playerCount: 1, // for now, we just have the host
+            playerCount: 1,
             promptGen,
             roundCount,
             currentRound: 1,
@@ -29,7 +29,7 @@ const GameSettings = () => {
         };
 
     setGame(newGame);
-    navigate('/how-to-play');
+    navigate('/how-to', { state: { fromGame: true } });
 };
 
     return (

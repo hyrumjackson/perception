@@ -1,7 +1,17 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const HowToPlay = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const fromGame = location.state?.fromGame;
+
+  const handleContinue = () => {
+    if (fromGame) {
+      navigate('/question');
+    } else {
+      navigate('/');
+    }
+  };
 
   return (
     <div className="page">
@@ -11,7 +21,7 @@ const HowToPlay = () => {
         <br />
         (For now, imagine a cool video or animation here!)
       </p>
-      <button onClick={() => navigate('/question')}>Continue</button>
+      <button onClick={handleContinue}>Continue</button>
     </div>
   );
 };

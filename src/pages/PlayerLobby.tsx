@@ -63,7 +63,7 @@ const PlayerLobby = () => {
 
     setStatus('Starting...');
     const timeout = setTimeout(() => {
-      navigate('/how-to-play');
+      navigate('/how-to', { state: { fromGame: true } });
     }, 1000);
 
     return () => clearTimeout(timeout);
