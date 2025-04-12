@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { useGame } from '../context/GameContext';
 import { Player } from '../context/gameTypes';
 
+const allNames = ['Alice', 'Bob', 'Charlie', 'David', 'Eli', 'Frankie', 'Grace', 'Holly', 'Isaac', 'Jack', 'Kathy', 'Leo', 'Mia', 'Nina', 'Oscar', 'Penny', 'Quinn', 'Riley', 'Sam', 'Tina', 'Uma', 'Vera', 'Willow', 'Xander', 'Yara', 'Zane'];
+const allAvatars = ['🐶', '🐱', '🐸', '🐵', '🦊', '🐯', '🐼', '🐧'];
+
 const PlayerInfo = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,15 +29,23 @@ const PlayerInfo = () => {
             hasVoted: false,
         };
 
-        const fakeNames = ['Alice', 'Bob', 'Charlie'];
-        const fakeAvatars = ['🐵', '🐱', '🐸'];
+        const remainingNames = allNames.filter(n => n !== name);
+        const remainingAvatars = allAvatars.filter(a => a !== avatar);
 
-        const fakePlayers: Player[] = fakeNames.map((name, i) => ({
+        const totalPlayers = Math.floor(Math.random() * 5) + 4; // 4–8
+        const fakeCount = totalPlayers - 1;
+
+        const shuffle = <T,>(array: T[]) => [...array].sort(() => Math.random() - 0.5);
+
+        const shuffledNames = shuffle(remainingNames).slice(0, fakeCount);
+        const shuffledAvatars = shuffle(remainingAvatars).slice(0, fakeCount);
+
+        const fakePlayers: Player[] = shuffledNames.map((fakeName, i) => ({
             id: crypto.randomUUID(),
             gameId,
             isHost: false,
-            name,
-            avatarId: fakeAvatars[i],
+            name: fakeName,
+            avatarId: shuffledAvatars[i] || '❓',
             score: 0,
             vote: 0,
             hasVoted: false,
