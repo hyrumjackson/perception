@@ -15,6 +15,8 @@ const RoundResults = () => {
     grouped[p.vote].push(p);
   });
 
+  const maxPlayersPerVote = Math.max(...Object.values(grouped).map(g => g.length), 0);
+
   const handleContinue = () => {
     const voteCounts: Record<number, number> = {};
     players.forEach(p => {
@@ -30,9 +32,9 @@ const RoundResults = () => {
         hasVoted: false
       };
     });
-  
+
     setPlayers(updatedPlayers);
-  
+
     if (game.currentRound < game.roundCount) {
       game.currentRound += 1;
       navigate('/question');
@@ -46,27 +48,47 @@ const RoundResults = () => {
       <h1>Round {game.currentRound}</h1>
       <p>{prompt.text}</p>
 
-      <div>
-        {[...Array(maxVote)].map((_, i) => {
-          const voteNum = i + 1;
-          const group = grouped[voteNum] || [];
-          return (
-            <div key={voteNum}>
-              <h3>{voteNum}</h3>
-              <div>
-                {group.map((p) => (
-                  <div key={p.id}>
-                    <span>{p.avatarId}</span>
-                    <div>{p.name}</div>
-                  </div>
-                ))}
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          {[...Array(maxVote)].map((_, i) => {
+            const voteNum = i + 1;
+            const group = grouped[voteNum] || [];
+
+            const padded = [...group];
+            while (padded.length < maxPlayersPerVote) {
+              padded.push(null as any);
+            }
+
+            return (
+              <div
+                key={voteNum}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: `80px repeat(${maxPlayersPerVote}, 100px)`,
+                  alignItems: 'center',
+                  textAlign: 'center'
+                }}
+              >
+                <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>{voteNum}</div>
+                {padded.map((p, index) =>
+                  p ? (
+                    <div key={p.id}>
+                      <div style={{ fontSize: '1.5rem' }}>{p.avatarId}</div>
+                      <div>{p.name}</div>
+                    </div>
+                  ) : (
+                    <div key={`empty-${index}`} />
+                  )
+                )}
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
-      <button onClick={handleContinue}>Continue</button>
+      <button onClick={handleContinue} style={{ marginTop: '2rem' }}>
+        Continue
+      </button>
     </div>
   );
 };
