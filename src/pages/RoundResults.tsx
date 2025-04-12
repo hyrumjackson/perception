@@ -1,9 +1,17 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGame } from '../context/GameContext';
 
 const RoundResults = () => {
   const navigate = useNavigate();
   const { game, players, setPlayers, prompt } = useGame();
+
+  const [showPoints, setShowPoints] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setShowPoints(true), 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   if (!prompt || !game) return <p>Loading results...</p>;
 
@@ -15,14 +23,18 @@ const RoundResults = () => {
     grouped[p.vote].push(p);
   });
 
+  const voteCounts: Record<number, number> = {};
+  players.forEach(p => {
+    voteCounts[p.vote] = (voteCounts[p.vote] || 0) + 1;
+  });
+
+  const uniqueVoters = new Set(
+    players.filter(p => voteCounts[p.vote] === 1).map(p => p.id)
+  );
+
   const maxPlayersPerVote = Math.max(...Object.values(grouped).map(g => g.length), 0);
 
   const handleContinue = () => {
-    const voteCounts: Record<number, number> = {};
-    players.forEach(p => {
-      voteCounts[p.vote] = (voteCounts[p.vote] || 0) + 1;
-    });
-
     const updatedPlayers = players.map(p => {
       const isUnique = voteCounts[p.vote] === 1;
       return {
@@ -64,7 +76,7 @@ const RoundResults = () => {
                 key={voteNum}
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: `80px repeat(${maxPlayersPerVote}, 100px)`,
+                  gridTemplateColumns: `80px repeat(${maxPlayersPerVote}, 100px) 60px`,
                   alignItems: 'center',
                   textAlign: 'center'
                 }}
@@ -80,6 +92,17 @@ const RoundResults = () => {
                     <div key={`empty-${index}`} />
                   )
                 )}
+                <div>
+                  {showPoints &&
+                    padded.some(p => p && uniqueVoters.has(p.id)) &&
+                    padded.map((p, idx) =>
+                      p && uniqueVoters.has(p.id) ? (
+                        <div key={p.id} style={{ color: 'green', fontWeight: 'bold' }}>+1</div>
+                      ) : (
+                        <div key={idx}>&nbsp;</div>
+                      )
+                    )}
+                </div>
               </div>
             );
           })}
