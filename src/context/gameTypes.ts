@@ -21,6 +21,7 @@ export interface Player {
     hostId: string;
     playerCount: number;
     promptGen: boolean;
+    promptIds: string[];
     roundCount: number;
     currentRound: number;
     status: string;

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useGame } from '../context/GameContext';
 import { Game } from '../context/gameTypes';
+import { promptPool } from '../data/prompts';
 
 const GameSettings = () => {
     const navigate = useNavigate();
@@ -12,6 +13,9 @@ const GameSettings = () => {
 
     const handleStartGame = () => {
         if (roundCount === null || promptGen === null || !player) return;
+
+        const shuffledPrompts = [...promptPool].sort(() => Math.random() - 0.5);
+        const promptIds = shuffledPrompts.slice(0, roundCount).map(p => p.id);
     
         const newGame: Game = {
             id: player.gameId,
@@ -21,6 +25,7 @@ const GameSettings = () => {
             roundCount,
             currentRound: 1,
             status: 'intro',
+            promptIds,
         };
 
     setGame(newGame);

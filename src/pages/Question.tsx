@@ -1,15 +1,30 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useGame } from '../context/GameContext';
+import { promptPool } from '../data/prompts';
 
 const Question = () => {
     const navigate = useNavigate();
+    const { game, prompt, setPrompt } = useGame();
+
+    const currentPromptId = game?.promptIds[game.currentRound - 1];
+    const currentPrompt = promptPool.find(p => p.id === currentPromptId);
+
+    useEffect(() => {
+        if (currentPrompt) {
+        setPrompt(currentPrompt);
+        }
+    }, [currentPrompt, setPrompt]);
+
+    if (!prompt) return <p>Loading prompt...</p>;
 
     return (
         <div className="page">
             <h1>Round 1</h1>
-            <p>Who is the most likely to survive a zombie apocalypse?</p>
-            <p><strong>1</strong> Zombie slayer</p>
+            <p>{prompt.text}</p>
+            <p><strong>1</strong> {prompt.minText}</p>
             <p>to</p>
-            <p><strong>4</strong> Zombie food</p>
+            <p><strong>4</strong> {prompt.maxText}</p>
             <h2>Rank Yourself</h2>
             <div>
                 <label><input type="radio" name="ranking" />1</label>
