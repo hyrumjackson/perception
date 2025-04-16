@@ -1,46 +1,136 @@
-# Getting Started with Create React App
+# Perception – IS 542 Final Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Perception is a TypeScript-based single-page web app built with React. It is designed to simulate a self-ranking group game where users assess their personal traits within a peer group. The goal of this project was to demonstrate full mastery of React with TypeScript, API integration, state management, and strong UI/UX principles.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📦 Project Overview
 
-### `npm start`
+This application is a single-page game experience where one player hosts a game and others join using a room code. Each player ranks themselves based on humorous or insightful prompts. Points are awarded if a player uniquely selects a number. The app runs entirely on the client side with simulated multiplayer for demonstration.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🛠 Technologies Used
 
-### `npm test`
+- **React** (Functional Components, React Router)
+- **TypeScript** with strict type checking
+- **Context API** for global state management
+- **Hooks**: useState, useEffect, useContext, useMemo
+- **API Integration**: API Ninjas (Quotes API)
+- **Custom Utility Functions** for prompt generation
+- **Global CSS** for styling
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🔄 Application Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### ✅ Functional Requirements:
+- React + TypeScript application using modern development patterns
+- Routing via `react-router-dom`
+- Global state for players, game, and current prompts
+- Quote API fetch on the home screen
+- Prompt-based game with ranking and scoring logic
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### ✅ Additional Features:
+- Animated player reveal in lobby and results
+- Game settings (rounds, prompt type: auto or custom)
+- Responsive and centered layout
+- Custom prompts fallback ("Give your prompt to the group")
+- Basic error prevention (disabled navigation without selection, etc.)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🌐 API Used
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**API Ninjas - Quotes API**
+- Used to display a quote on the title screen
+- Random quote fetched from `https://api.api-ninjas.com/v1/quotes`
+- Error handled with fallback message
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Environment variable:
+```env
+REACT_APP_API_NINJAS_KEY=your-api-key-here
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 📂 Project Structure Highlights
 
-## Learn More
+```
+/src
+├── context/
+│   ├── GameContext.tsx        # Global state management
+│   ├── gameTypes.ts           # Shared TypeScript interfaces
+├── data/
+│   └── prompts.ts             # Prompt pool for the game
+├── pages/                     # All game screens
+│   ├── TitleScreen.tsx
+│   ├── HostInfo.tsx
+│   ├── PlayerInfo.tsx
+│   ├── GameSettings.tsx
+│   ├── Question.tsx
+│   ├── RoundResults.tsx
+│   └── etc.
+└── utils/
+    └── generatePromptIds.ts   # Utility for shuffled prompt lists
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🚀 Running the Project
+
+### 1. Clone the repository:
+```bash
+git clone https://github.com/your-username/perception.git
+cd perception
+```
+
+### 2. Install dependencies:
+```bash
+npm install
+```
+
+### 3. Create a `.env` file:
+```bash
+echo "REACT_APP_API_NINJAS_KEY=your-api-key-here" > .env
+```
+
+### 4. Start the development server:
+```bash
+npm start
+```
+
+The app will run on `http://localhost:3000`
+
+---
+
+## 🌍 Deployment
+
+Deployed on **[Vercel](https://vercel.com)**
+> Live site: https://your-deployed-site.vercel.app
+
+---
+
+## ✅ Instructor Notes
+
+This project demonstrates all key requirements from the IS 542 semester project rubric:
+
+- **Fully in TypeScript** with defined interfaces and types
+- **React Functional Components** with hooks
+- **Web API integrated** with error handling
+- **State Management** using Context API and hooks
+- **Routing** via `react-router-dom`
+- **Responsive Design** and intuitive UI
+- **Readable, maintainable code structure**
+
+---
+
+## 📌 Future Enhancements (Stretch Goals)
+- Add real-time multiplayer with WebSockets or Firebase
+- Allow players to input custom prompts pre-game
+- Add host controls to manually start rounds
+- Animate scoring and results transitions
+
+---
+
+Made with ❤️ for IS 542.
