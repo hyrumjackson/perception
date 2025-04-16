@@ -1,19 +1,72 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-    align-items: center;
-  }
-  
-  .page {
-    text-align: center;
-    padding-top: 4rem;
-  }
-  
-  button {
-    padding: 0.5rem 1rem;
-    margin: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  align-items: center;
+}
+
+.page {
+  text-align: center;
+  padding-top: 4rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+ol {
+  list-style-position: inside;
+}
+
+li {
+  margin-bottom: 1rem;
+}
+
+.results-grid {
+  display: grid;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.results-row {
+  display: grid;
+  grid-auto-rows: 50px;
+  align-items: center;
+  text-align: center;
+}
+
+.results-cell {
+  width: 100px;
+}
+
+.results-number {
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: 80px;
+}
+
+.results-score {
+  width: 60px;
+  color: green;
+  font-weight: bold;
+}
+
+.avatar {
+  font-size: 1.5rem;
+}

@@ -60,56 +60,53 @@ const RoundResults = () => {
       <h1>Round {game.currentRound}</h1>
       <p>{prompt.text}</p>
 
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-        <div style={{ display: 'grid', gap: '1rem' }}>
-          {[...Array(maxVote)].map((_, i) => {
-            const voteNum = i + 1;
-            const group = grouped[voteNum] || [];
+      <div className="results-grid">
+        {[...Array(maxVote)].map((_, i) => {
+          const voteNum = i + 1;
+          const group = grouped[voteNum] || [];
 
-            const padded = [...group];
-            while (padded.length < maxPlayersPerVote) {
-              padded.push(null as any);
-            }
+          const padded = [...group];
+          while (padded.length < maxPlayersPerVote) {
+            padded.push(null as any);
+          }
 
-            return (
-              <div
-                key={voteNum}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: `80px repeat(${maxPlayersPerVote}, 100px) 60px`,
-                  alignItems: 'center',
-                  textAlign: 'center'
-                }}
-              >
-                <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>{voteNum}</div>
-                {padded.map((p, index) =>
-                  p ? (
-                    <div key={p.id}>
-                      <div style={{ fontSize: '1.5rem' }}>{p.avatarId}</div>
-                      <div>{p.name}</div>
-                    </div>
-                  ) : (
-                    <div key={`empty-${index}`} />
-                  )
-                )}
-                <div>
-                  {showPoints &&
-                    padded.some(p => p && uniqueVoters.has(p.id)) &&
-                    padded.map((p, idx) =>
-                      p && uniqueVoters.has(p.id) ? (
-                        <div key={p.id} style={{ color: 'green', fontWeight: 'bold' }}>+1</div>
-                      ) : (
-                        <div key={idx}>&nbsp;</div>
-                      )
-                    )}
-                </div>
+          return (
+            <div
+              key={voteNum}
+              className="results-row"
+              style={{
+                gridTemplateColumns: `80px repeat(${maxPlayersPerVote}, 100px) 60px`
+              }}
+            >
+              <div className="results-number">{voteNum}</div>
+
+              {padded.map((p, index) =>
+                p ? (
+                  <div key={p.id} className="results-cell">
+                    <div className="avatar">{p.avatarId}</div>
+                    <div>{p.name}</div>
+                  </div>
+                ) : (
+                  <div key={`empty-${index}`} className="results-cell" />
+                )
+              )}
+
+              <div className="results-score">
+                {showPoints &&
+                  padded.map((p, idx) =>
+                    p && uniqueVoters.has(p.id) ? (
+                      <div key={p.id}>+1</div>
+                    ) : (
+                      <div key={idx}>&nbsp;</div>
+                    )
+                  )}
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
 
-      <button onClick={handleContinue} style={{ marginTop: '2rem' }}>
+      <button onClick={handleContinue}>
         Continue
       </button>
     </div>
