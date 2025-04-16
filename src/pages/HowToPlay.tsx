@@ -2,83 +2,105 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const HowToPlay = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const fromGame = location.state?.fromGame;
+  const fromGame = useLocation().state?.fromGame;
 
   const handleContinue = () => {
-    if (fromGame) {
-      navigate('/question');
-    } else {
-      navigate('/');
-    }
+    navigate(fromGame ? '/question' : '/');
   };
 
   return (
-    <div className="page" style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
-      <h2>How to Play</h2>
-      <p>Welcome to <strong>Perception</strong>!</p>
-      <p>This game helps you discover how you see yourself... and how your friends might see themselves too.</p>
-      <p>Are you the most shy? The most likely to become rich? The biggest rule-breaker?</p>
+    <div className="page" style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
+      <h1 style={{ marginBottom: '1rem' }}>How to Play</h1>
+      <p><strong>Perception</strong> is a game about how you see yourself — and how your friends might see themselves too.</p>
+      <p>Are you the shyest? The funniest? The most likely to take over the world?</p>
 
-      <p>Here’s how it works:</p>
-      <ol style={{ textAlign: 'left' }}>
-        <li>You’ll receive a prompt like:</li>
+      <hr style={{ margin: '2rem auto', width: '60%' }} />
+
+      <h2 style={{ marginBottom: '0.5rem' }}>How it Works</h2>
+      <ol style={{ textAlign: 'left', lineHeight: '1.6' }}>
+        <li>You’ll be given a prompt like:</li>
       </ol>
 
-      {/* Example question screen */}
-      <div style={{ border: '1px solid #ccc', padding: '1rem', borderRadius: '8px', margin: '1rem 0' }}>
-        <h3>Who is the most likely to survive a zombie apocalypse?</h3>
+      {/* Example Question UI */}
+      <div style={{
+        border: '1px solid #ccc',
+        borderRadius: '12px',
+        padding: '1.25rem',
+        backgroundColor: '#fff',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+        margin: '1rem 0'
+      }}>
+        <h3 style={{ marginTop: 0 }}>Who is the most likely to survive a zombie apocalypse?</h3>
         <p><strong>1</strong> Zombie slayer</p>
         <p>to</p>
         <p><strong>4</strong> Zombie food</p>
-        <h4>Rank Yourself:</h4>
+        <h4 style={{ marginTop: '1.25rem' }}>Rank Yourself:</h4>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-          <label><input type="radio" name="ranking" disabled /> 1</label>
-          <label><input type="radio" name="ranking" disabled /> 2</label>
-          <label><input type="radio" name="ranking" disabled /> 3</label>
-          <label><input type="radio" name="ranking" disabled /> 4</label>
+          {[1, 2, 3, 4].map(num => (
+            <label key={num}>
+              <input type="radio" name="example" disabled /> {num}
+            </label>
+          ))}
         </div>
       </div>
 
-      <ol start={2} style={{ textAlign: 'left' }}>
-        <li>Rank yourself based on how you think you fit into the group.</li>
-        <li>For example: if Johnny is more likely to survive than you, but you’re more likely than Karen and Mason, choose 2.</li>
-        <li>Then, you’ll see the results:</li>
+      <ol start={2} style={{ textAlign: 'left', lineHeight: '1.6' }}>
+        <li>Choose your rank based on how you think you compare to the group.</li>
+        <li>Example: if you think Johnny would survive longer than you, but you’d beat Karen and Mason, choose <strong>2</strong>.</li>
+        <li>After voting, you'll see the results:</li>
       </ol>
 
-      {/* Example results screen */}
-      <div style={{ display: 'grid', gridTemplateColumns: '80px 100px 100px 60px', gap: '1rem', justifyContent: 'center', textAlign: 'center', margin: '1rem 0' }}>
-        <div><strong>1</strong></div>
-        <div>🐼<br />Johnny</div>
-        <div></div>
-        <div>+1</div>
+      <div style={{
+        border: '1px solid #ccc',
+        borderRadius: '12px',
+        padding: '1.25rem',
+        backgroundColor: '#fff',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+        margin: '1rem 0',
+        marginTop: '2rem'
+      }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '80px 100px 100px 60px',
+          rowGap: '1rem',
+          gridAutoRows: '40px',
+          justifyContent: 'center',
+          textAlign: 'center'
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}><strong>1</strong></div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>🐼<br />Johnny</div>
+          <div></div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', color: 'green', fontWeight: 'bold' }}>+1</div>
 
-        <div><strong>2</strong></div>
-        <div>🦊<br />You</div>
-        <div></div>
-        <div>+1</div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}><strong>2</strong></div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>🦊<br />You</div>
+          <div></div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', color: 'green', fontWeight: 'bold' }}>+1</div>
 
-        <div><strong>3</strong></div>
-        <div></div>
-        <div></div>
-        <div></div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}><strong>3</strong></div>
+          <div></div>
+          <div></div>
+          <div></div>
 
-        <div><strong>4</strong></div>
-        <div>🐸<br />Karen</div>
-        <div>🐵<br />Mason</div>
-        <div></div>
-
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}><strong>4</strong></div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>🐸<br />Karen</div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>🐵<br />Mason</div>
+          <div></div>
+        </div>
       </div>
 
-      <ol start={5} style={{ textAlign: 'left' }}>
-        <li>The goal is for everyone to choose a unique ranking — to neatly sort yourselves.</li>
-        <li>But it doesn't always work out that way!</li>
-        <li>You earn a <strong>+1</strong> if you’re the <em>only</em> person to choose your rank.</li>
+      <ol start={5} style={{ textAlign: 'left', lineHeight: '1.6', marginTop: '2rem' }}>
+        <li>The goal is for everyone to pick a unique rank — forming a perfect sort. But hey, life’s messy. So are the results.</li>
+        <li>If you’re the <em>only one</em> to pick your number, you earn a <strong>+1</strong>.</li>
       </ol>
 
-      <p style={{ fontWeight: 'bold', marginTop: '1rem' }}>Let's see how well you know yourself.</p>
+      <p style={{ fontWeight: 'bold', marginTop: '2rem' }}>
+        Let's see how well you know yourself.
+      </p>
 
-      <button onClick={handleContinue} style={{ marginTop: '2rem' }}>Continue</button>
+      <button onClick={handleContinue} className="continue-button">
+        Continue
+      </button>
     </div>
   );
 };
