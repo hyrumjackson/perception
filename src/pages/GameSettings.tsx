@@ -14,8 +14,14 @@ const GameSettings = () => {
     const handleStartGame = () => {
         if (roundCount === null || promptGen === null || !player) return;
 
-        const shuffledPrompts = [...promptPool].sort(() => Math.random() - 0.5);
-        const promptIds = shuffledPrompts.slice(0, roundCount).map(p => p.id);
+        let promptIds: string[] = [];
+
+        if (promptGen) {
+            const shuffledPrompts = [...promptPool].sort(() => Math.random() - 0.5);
+            promptIds = shuffledPrompts.slice(0, roundCount).map(p => p.id);
+        } else {
+            promptIds = Array.from({ length: roundCount }, (_, i) => `custom-${i + 1}`);
+        }
     
         const newGame: Game = {
             id: player.gameId,

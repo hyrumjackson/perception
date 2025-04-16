@@ -1,16 +1,26 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useGame } from '../context/GameContext';
 import { promptPool } from '../data/prompts';
 
 const Question = () => {
   const navigate = useNavigate();
-  const { game, player, players, setPlayers, prompt, setPrompt } = useGame();
-
+  const { game, player, players, setPlayers, setPrompt } = useGame();
   const [selectedVote, setSelectedVote] = useState<number | null>(null);
 
   const currentPromptId = game?.promptIds[game.currentRound - 1];
-  const currentPrompt = promptPool.find(p => p.id === currentPromptId);
+
+  const currentPrompt = useMemo(() => {
+    return (
+      promptPool.find(p => p.id === currentPromptId) ??
+      (currentPromptId?.startsWith('custom-') && {
+        id: currentPromptId,
+        text: 'Custom prompt',
+        minText: 'Most likely',
+        maxText: 'Least likely',
+      })
+    );
+  }, [currentPromptId]);
 
   useEffect(() => {
     if (currentPrompt) {
@@ -18,19 +28,16 @@ const Question = () => {
     }
   }, [currentPrompt, setPrompt]);
 
-  if (!prompt || !game || !player) return <p>Loading prompt...</p>;
+  if (!currentPrompt || !game || !player) return <p>Loading prompt...</p>;
 
   const handleSubmit = () => {
     if (selectedVote === null) return;
 
-    const updatedPlayers = players.map((p) => {
-      if (p.id === player.id) {
-        return { ...p, vote: selectedVote, hasVoted: true };
-      } else {
-        const randomVote = Math.floor(Math.random() * players.length) + 1;
-        return { ...p, vote: randomVote, hasVoted: true };
-      }
-    });
+    const updatedPlayers = players.map((p) =>
+      p.id === player.id
+        ? { ...p, vote: selectedVote, hasVoted: true }
+        : { ...p, vote: Math.floor(Math.random() * players.length) + 1, hasVoted: true }
+    );
 
     setPlayers(updatedPlayers);
     navigate('/waiting');
@@ -39,10 +46,15 @@ const Question = () => {
   return (
     <div className="page">
       <h1>Round {game.currentRound}</h1>
-      <p>{prompt.text}</p>
-      <p><strong>1</strong> {prompt.minText}</p>
+      <p>{currentPrompt.text}</p>
+
+      <p>
+        <strong>1</strong> {currentPrompt.minText}
+      </p>
       <p>to</p>
-      <p><strong>{players.length}</strong> {prompt.maxText}</p>
+      <p>
+        <strong>{players.length}</strong> {currentPrompt.maxText}
+      </p>
 
       <h2>Rank Yourself</h2>
       <div>
