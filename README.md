@@ -81,7 +81,7 @@ REACT_APP_API_NINJAS_KEY=your-api-key-here
 
 ### 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/perception.git
+git clone https://github.com/hyrumjackson/perception.git
 cd perception
 ```
 
@@ -122,14 +122,6 @@ This project demonstrates all key requirements from the IS 542 semester project 
 - **Routing** via `react-router-dom`
 - **Responsive Design** and intuitive UI
 - **Readable, maintainable code structure**
-
----
-
-## 📌 Future Enhancements (Stretch Goals)
-- Add real-time multiplayer with WebSockets or Firebase
-- Allow players to input custom prompts pre-game
-- Add host controls to manually start rounds
-- Animate scoring and results transitions
 
 ---
 
