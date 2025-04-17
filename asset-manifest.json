@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/perception/static/css/main.61b2b6e7.css",
+    "main.js": "/perception/static/js/main.4e91287c.js",
+    "index.html": "/perception/index.html",
+    "main.61b2b6e7.css.map": "/perception/static/css/main.61b2b6e7.css.map",
+    "main.4e91287c.js.map": "/perception/static/js/main.4e91287c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.61b2b6e7.css",
+    "static/js/main.4e91287c.js"
+  ]
+}
