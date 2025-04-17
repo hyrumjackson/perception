@@ -106,8 +106,8 @@ The app will run on `http://localhost:3000`
 
 ## 🌍 Deployment
 
-Deployed on **[Vercel](https://vercel.com)**
-> Live site: https://your-deployed-site.vercel.app
+Deployed on **GitHub Pages**
+> Live site: https://hyrumjackson.github.io/perception
 
 ---
 
@@ -122,6 +122,18 @@ This project demonstrates all key requirements from the IS 542 semester project 
 - **Routing** via `react-router-dom`
 - **Responsive Design** and intuitive UI
 - **Readable, maintainable code structure**
+
+---
+
+## 💡 AI Assistance Disclosure
+
+Some portions of this project were developed with the assistance of ChatGPT. I provided the ideas, structure, and overall direction, and used AI to:
+- Translate design ideas into CSS
+- Refactor complex React component logic
+- Clarify TypeScript types and interface design
+- Generate layout suggestions and styling best practices
+
+All code was reviewed, tested, and customized to meet the project’s requirements.
 
 ---
 
