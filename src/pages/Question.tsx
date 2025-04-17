@@ -78,3 +78,9 @@ const Question = () => {
 };
 
 export default Question;
+
+// AI Assistance Note:
+// I relied on ChatGPT to help structure the voting screen —
+// including selecting the current prompt, syncing it with context, generating the rank buttons dynamically,
+// and handling submission logic with fallback values for other players. I adjusted the design and flow
+// to match the intended gameplay experience.

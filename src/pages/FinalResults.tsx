@@ -25,3 +25,7 @@ const FinalResults = () => {
 };
 
 export default FinalResults;
+
+// AI Assistance Note:
+// I used ChatGPT to help with sorting players by score in descending order,
+// including making sure the original array wasn't messed up and formatting the point text properly.

@@ -58,3 +58,8 @@ const HostLobby = () => {
 };
 
 export default HostLobby;
+
+// AI Assistance Note:
+// I used ChatGPT to help create the natural, delayed appearance of fake players in the lobby,
+// using setTimeout and randomized delays to simulate a real-time join experience.
+// This enhanced the immersive feel of the game before starting.

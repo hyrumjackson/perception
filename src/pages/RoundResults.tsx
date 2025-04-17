@@ -114,3 +114,9 @@ const RoundResults = () => {
 };
 
 export default RoundResults;
+
+// AI Assistance Note:
+// ChatGPT helped design and debug the logic for grouping votes,
+// identifying unique voters, calculating scores, and handling dynamic grid rendering.
+// This was one of the more complex components, and ChatGPT helped in getting the
+// layout and round transition behavior working smoothly in React.

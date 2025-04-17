@@ -99,3 +99,6 @@ const PlayerLobby = () => {
 };
 
 export default PlayerLobby;
+
+// AI Assistance Note:
+// See note for HostLobby

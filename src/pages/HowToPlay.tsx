@@ -106,3 +106,7 @@ const HowToPlay = () => {
 };
 
 export default HowToPlay;
+
+// AI Assistance Note:
+// I wrote the instructional content myself, but used ChatGPT to help style the layout and example UI,
+// including the visual structure for rankings, spacing, and highlight elements to match the game's aesthetic.

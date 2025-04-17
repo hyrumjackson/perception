@@ -44,3 +44,8 @@ const Waiting = () => {
 };
 
 export default Waiting;
+
+// AI Assistance Note:
+// I used ChatGPT to help build the useEffect logic for simulating a realistic wait screen,
+// including timed removal of fake players and automatic navigation to the results page.
+// The timing coordination and cleanup logic was especially helpful to get right.

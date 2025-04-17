@@ -84,3 +84,8 @@ const GameSettings = () => {
 };
 
 export default GameSettings;
+
+// AI Assistance Note:
+// I used ChatGPT to help design the prompt generation logic before starting the game,
+// including shuffling the prompt pool, generating custom IDs, and constructing the initial Game object.
+// The logic ensures flexibility for both auto and custom prompt flows.

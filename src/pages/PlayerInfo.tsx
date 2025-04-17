@@ -93,3 +93,6 @@ const PlayerInfo = () => {
 };
 
 export default PlayerInfo;
+
+// AI Assistance Note:
+// See note for HostInfo

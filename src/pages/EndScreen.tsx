@@ -51,3 +51,8 @@ const EndScreen = () => {
 };
 
 export default EndScreen;
+
+// AI Assistance Note:
+// I used ChatGPT to help figure out how to reset the game state for a new session,
+// including regenerating prompts, resetting player scores and votes, and restoring
+// initial game status. The logic was customized to fit my component and context setup.

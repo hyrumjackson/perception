@@ -101,3 +101,8 @@ const HostInfo = () => {
 };
 
 export default HostInfo;
+
+// AI Assistance Note:
+// I used ChatGPT to help design the logic for generating a random pool of fake players,
+// including name and avatar shuffling, avoiding collisions with the host, and populating
+// the game with 4–8 total players. The implementation was adjusted to work with my Player type.

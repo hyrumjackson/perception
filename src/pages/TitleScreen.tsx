@@ -53,3 +53,7 @@ const TitleScreen = () => {
 };
 
 export default TitleScreen;
+
+// AI Assistance Note:
+// I used ChatGPT to help structure the useEffect for this API call,
+// including managing the fetch flow, error fallback, and ensuring it only runs once.
