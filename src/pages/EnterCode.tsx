@@ -20,6 +20,7 @@ const EnterCode = () => {
                 onChange={(e) => setCode(e.target.value)}
             />
             <br />
+            <br />
             <button onClick={handleFindGame}>Find Game</button>
         </div>
     );

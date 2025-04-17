@@ -23,10 +23,10 @@ const HowToPlay = () => {
 
       {/* Example Question UI */}
       <div style={{
-        border: '1px solid #ccc',
+        border: '1px solid white',
         borderRadius: '12px',
         padding: '1.25rem',
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
         boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
         margin: '1rem 0'
       }}>
@@ -51,10 +51,10 @@ const HowToPlay = () => {
       </ol>
 
       <div style={{
-        border: '1px solid #ccc',
+        border: '1px solid white',
         borderRadius: '12px',
         padding: '1.25rem',
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
         boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
         margin: '1rem 0',
         marginTop: '2rem'

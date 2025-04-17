@@ -36,7 +36,7 @@ const TitleScreen = () => {
 
   return (
     <div className="page" style={{ textAlign: 'center' }}>
-      <h1>Perception</h1>
+      <h1>PERCEPTION</h1>
 
       <button onClick={() => navigate('/play')}>Play Game</button>
       <br />

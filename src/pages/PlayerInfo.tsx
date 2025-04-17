@@ -85,6 +85,7 @@ const PlayerInfo = () => {
                 </label>
                 ))}
             </div>
+            <br />
             <button onClick={handleJoinGame}>
                 Join Game
             </button>

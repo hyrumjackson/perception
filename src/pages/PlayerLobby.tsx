@@ -92,7 +92,7 @@ const PlayerLobby = () => {
           </li>
         ))}
       </ul>
-
+      <br />
       <p>{status}</p>
     </div>
   );

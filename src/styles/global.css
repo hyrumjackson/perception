@@ -1,25 +1,69 @@
+/* GLOBAL RESET */
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f7f7f7;
-  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #75B9FF, #A5FF78);
+  color: #ffffff;
+  min-height: 100vh;
 }
 
+/* Page Container */
 .page {
   text-align: center;
-  padding-top: 4rem;
+  padding: 4rem 1rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
+/* Headings */
+h1, h2, h3, h4 {
+  font-family: 'Righteous', cursive;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* Buttons */
 button {
-  padding: 0.5rem 1rem;
+  width: 170px;
+  padding: 0.75rem;
   margin: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-family: 'Montserrat', sans-serif;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 999px;
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-ul,
-ol {
+button:hover {
+  background-color: white;
+  color: #8fdfb6;
+}
+
+button:disabled {
+  border-color: #e9e7e7;
+  color: #e9e7e7;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Lists */
+ul, ol {
   padding: 0;
   margin: 0 auto;
   text-align: center;
@@ -37,6 +81,12 @@ li {
   margin-bottom: 1rem;
 }
 
+/* Avatar Display */
+.avatar {
+  font-size: 2rem;
+}
+
+/* Score Grid System */
 .results-grid {
   display: grid;
   gap: 1rem;
@@ -67,6 +117,67 @@ li {
   font-weight: bold;
 }
 
-.avatar {
-  font-size: 1.5rem;
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"] {
+  font-family: 'Montserrat', sans-serif;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 1rem;
+  outline: none;
 }
+
+input::placeholder {
+  color: #e9e7e7;
+}
+
+/* Custom Radio Buttons */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: 0 0.5rem;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+input[type="radio"]:hover {
+  border-color: #e9e7e7;
+}
+
+label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  margin: 0.25rem 0.75rem;
+  cursor: pointer;
+}
+
+/* 
+  AI Assistance Note:
+  I came up with the visual design ideas, and used ChatGPT to help translate those into CSS —
+  including things like soft transparency, custom radio buttons, and contrast-friendly color schemes
+  that fit the aesthetic of the game.
+*/

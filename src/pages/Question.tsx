@@ -71,7 +71,7 @@ const Question = () => {
           </label>
         ))}
       </div>
-
+      <br />
       <button onClick={handleSubmit}>Submit</button>
     </div>
   );

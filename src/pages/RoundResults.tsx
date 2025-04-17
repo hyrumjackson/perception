@@ -105,7 +105,7 @@ const RoundResults = () => {
           );
         })}
       </div>
-
+      <br />
       <button onClick={handleContinue}>
         Continue
       </button>

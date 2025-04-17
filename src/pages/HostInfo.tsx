@@ -93,6 +93,7 @@ const HostInfo = () => {
                 </label>
                 ))}
             </div>
+            <br />
             <button onClick={handleCreateGame}>
                 Create Game
             </button>

@@ -5,7 +5,7 @@ const TitleScreen = () => {
 
   return (
     <div className="page">
-      <h1>Perception</h1>
+      <h1>PERCEPTION</h1>
       <button onClick={() => navigate('/host')}>Host Game</button>
       <br />
       <button onClick={() => navigate('/code')}>Join Game</button>
