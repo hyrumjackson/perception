@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { SocketContext } from './context/SocketContext';
 import { io } from 'socket.io-client';
@@ -20,6 +21,17 @@ import EndScreen from './pages/EndScreen';
 const socket = io('http://localhost:3001'); // or your live server URL
 
 function App() {
+  // ✅ Block back/forward buttons during gameplay
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      e.preventDefault();
+      window.history.go(1); // forces user back to current page
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   return (
     <SocketContext.Provider value={socket}>
       <Router>
