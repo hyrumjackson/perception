@@ -1,4 +1,7 @@
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { SocketContext } from './context/SocketContext';
+import { io } from 'socket.io-client';
+
 import TitleScreen from './pages/TitleScreen';
 import PlayScreen from './pages/PlayScreen';
 import HostInfo from './pages/HostInfo';
@@ -14,26 +17,30 @@ import RoundResults from './pages/RoundResults';
 import FinalResults from './pages/FinalResults';
 import EndScreen from './pages/EndScreen';
 
+const socket = io('http://localhost:3001'); // or your live server URL
+
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<TitleScreen />} />
-        <Route path="/play" element={<PlayScreen />} />
-        <Route path="/code" element={<EnterCode />} />
-        <Route path="/host" element={<HostInfo />} />
-        <Route path="/info" element={<PlayerInfo />} />
-        <Route path="/host-lobby" element={<HostLobby />} />
-        <Route path="/lobby" element={<PlayerLobby />} />
-        <Route path="/game-settings" element={<GameSettings />} />
-        <Route path="/how-to" element={<HowToPlay />} />
-        <Route path="/question" element={<Question />} />
-        <Route path="/waiting" element={<Waiting />} />
-        <Route path="/round-results" element={<RoundResults />} />
-        <Route path="/final-results" element={<FinalResults />} />
-        <Route path="/end" element={<EndScreen />} />
-      </Routes>
-    </Router>
+    <SocketContext.Provider value={socket}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<TitleScreen />} />
+          <Route path="/play" element={<PlayScreen />} />
+          <Route path="/code" element={<EnterCode />} />
+          <Route path="/host" element={<HostInfo />} />
+          <Route path="/info" element={<PlayerInfo />} />
+          <Route path="/host-lobby" element={<HostLobby />} />
+          <Route path="/lobby" element={<PlayerLobby />} />
+          <Route path="/game-settings" element={<GameSettings />} />
+          <Route path="/how-to" element={<HowToPlay />} />
+          <Route path="/question" element={<Question />} />
+          <Route path="/waiting" element={<Waiting />} />
+          <Route path="/round-results" element={<RoundResults />} />
+          <Route path="/final-results" element={<FinalResults />} />
+          <Route path="/end" element={<EndScreen />} />
+        </Routes>
+      </Router>
+    </SocketContext.Provider>
   );
 }
 

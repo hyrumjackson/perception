@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import { useGame } from '../context/GameContext';
+import { useSocket } from '../context/SocketContext';
 import { promptPool } from '../data/prompts';
+import { Player } from '../context/gameTypes';
 
 const Question = () => {
   const navigate = useNavigate();
+  const socket = useSocket();
   const { game, player, players, setPlayers, setPrompt } = useGame();
   const [selectedVote, setSelectedVote] = useState<number | null>(null);
 
@@ -12,7 +15,7 @@ const Question = () => {
 
   const currentPrompt = useMemo(() => {
     return (
-      promptPool.find(p => p.id === currentPromptId) ??
+      promptPool.find((p) => p.id === currentPromptId) ??
       (currentPromptId?.startsWith('custom-') && {
         id: currentPromptId,
         text: 'Custom prompt',
@@ -28,18 +31,30 @@ const Question = () => {
     }
   }, [currentPrompt, setPrompt]);
 
+  useEffect(() => {
+    const handleAllVoted = (updatedPlayers: Player[]) => {
+      setPlayers(updatedPlayers);
+      navigate('/waiting');
+    };
+
+    socket.on('all-voted', handleAllVoted);
+
+    return () => {
+      socket.off('all-voted', handleAllVoted);
+    };
+  }, [navigate, setPlayers]);
+
   if (!currentPrompt || !game || !player) return <p>Loading prompt...</p>;
 
   const handleSubmit = () => {
     if (selectedVote === null) return;
 
-    const updatedPlayers = players.map((p) =>
-      p.id === player.id
-        ? { ...p, vote: selectedVote, hasVoted: true }
-        : { ...p, vote: Math.floor(Math.random() * players.length) + 1, hasVoted: true }
-    );
+    socket.emit('submit-vote', {
+      gameCode: player.gameId,
+      playerId: player.id,
+      vote: selectedVote,
+    });
 
-    setPlayers(updatedPlayers);
     navigate('/waiting');
   };
 
@@ -78,9 +93,3 @@ const Question = () => {
 };
 
 export default Question;
-
-// AI Assistance Note:
-// I relied on ChatGPT to help structure the voting screen —
-// including selecting the current prompt, syncing it with context, generating the rank buttons dynamically,
-// and handling submission logic with fallback values for other players. I adjusted the design and flow
-// to match the intended gameplay experience.

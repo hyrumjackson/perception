@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGame } from '../context/GameContext';
+import { useSocket } from '../context/SocketContext';
+import { Player } from '../context/gameTypes';
 
 const RoundResults = () => {
   const navigate = useNavigate();
-  const { game, players, setPlayers, prompt } = useGame();
+  const socket = useSocket();
+  const { game, players, setPlayers, prompt, player, setGame } = useGame();
 
   const [showPoints, setShowPoints] = useState(false);
 
@@ -12,6 +15,53 @@ const RoundResults = () => {
     const timeout = setTimeout(() => setShowPoints(true), 1000);
     return () => clearTimeout(timeout);
   }, []);
+
+  useEffect(() => {
+    const handleRoundData = ({
+      updatedPlayers,
+      currentRound,
+      isGameOver,
+      hostId,
+      promptIds,
+      promptGen,
+      roundCount,
+      status,
+    }: {
+      updatedPlayers: Player[];
+      currentRound: number;
+      isGameOver: boolean;
+      hostId: string;
+      promptIds: string[];
+      promptGen: boolean;
+      roundCount: number;
+      status: string;
+    }) => {
+      setPlayers(updatedPlayers);
+      setGame({
+        id: game?.id || 'unknown',
+        hostId,
+        currentRound,
+        roundCount,
+        promptGen,
+        promptIds,
+        status,
+        playerCount: updatedPlayers.length,
+      });
+
+      if (isGameOver) {
+        navigate('/final-results');
+      } else {
+        navigate('/question');
+      }
+    };
+
+    socket.on('round-data', handleRoundData);
+    
+    return () => {
+      socket.off('round-data', handleRoundData);
+    };
+
+  }, [game?.id, navigate, setGame, setPlayers, socket]);
 
   if (!prompt || !game) return <p>Loading results...</p>;
 
@@ -24,34 +74,22 @@ const RoundResults = () => {
   });
 
   const voteCounts: Record<number, number> = {};
-  players.forEach(p => {
+  players.forEach((p) => {
     voteCounts[p.vote] = (voteCounts[p.vote] || 0) + 1;
   });
 
   const uniqueVoters = new Set(
-    players.filter(p => voteCounts[p.vote] === 1).map(p => p.id)
+    players.filter((p) => voteCounts[p.vote] === 1).map((p) => p.id)
   );
 
-  const maxPlayersPerVote = Math.max(...Object.values(grouped).map(g => g.length), 0);
+  const maxPlayersPerVote = Math.max(
+    ...Object.values(grouped).map((g) => g.length),
+    0
+  );
 
   const handleContinue = () => {
-    const updatedPlayers = players.map(p => {
-      const isUnique = voteCounts[p.vote] === 1;
-      return {
-        ...p,
-        score: isUnique ? p.score + 1 : p.score,
-        vote: 0,
-        hasVoted: false
-      };
-    });
-
-    setPlayers(updatedPlayers);
-
-    if (game.currentRound < game.roundCount) {
-      game.currentRound += 1;
-      navigate('/question');
-    } else {
-      navigate('/final-results');
+    if (player?.isHost) {
+      socket.emit('next-round', { gameCode: player.gameId });
     }
   };
 
@@ -75,7 +113,7 @@ const RoundResults = () => {
               key={voteNum}
               className="results-row"
               style={{
-                gridTemplateColumns: `80px repeat(${maxPlayersPerVote}, 100px) 60px`
+                gridTemplateColumns: `80px repeat(${maxPlayersPerVote}, 100px) 60px`,
               }}
             >
               <div className="results-number">{voteNum}</div>
@@ -106,17 +144,13 @@ const RoundResults = () => {
         })}
       </div>
       <br />
-      <button onClick={handleContinue}>
-        Continue
-      </button>
+      {player?.isHost && (
+        <button onClick={handleContinue}>
+          Continue
+        </button>
+      )}
     </div>
   );
 };
 
 export default RoundResults;
-
-// AI Assistance Note:
-// ChatGPT helped design and debug the logic for grouping votes,
-// identifying unique voters, calculating scores, and handling dynamic grid rendering.
-// This was one of the more complex components, and ChatGPT helped in getting the
-// layout and round transition behavior working smoothly in React.
