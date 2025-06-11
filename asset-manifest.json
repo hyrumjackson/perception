@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/perception/static/css/main.61b2b6e7.css",
-    "main.js": "/perception/static/js/main.d9766924.js",
+    "main.js": "/perception/static/js/main.35e471cc.js",
     "index.html": "/perception/index.html",
     "main.61b2b6e7.css.map": "/perception/static/css/main.61b2b6e7.css.map",
-    "main.d9766924.js.map": "/perception/static/js/main.d9766924.js.map"
+    "main.35e471cc.js.map": "/perception/static/js/main.35e471cc.js.map"
   },
   "entrypoints": [
     "static/css/main.61b2b6e7.css",
-    "static/js/main.d9766924.js"
+    "static/js/main.35e471cc.js"
   ]
 }
