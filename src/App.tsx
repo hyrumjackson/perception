@@ -18,14 +18,13 @@ import RoundResults from './pages/RoundResults';
 import FinalResults from './pages/FinalResults';
 import EndScreen from './pages/EndScreen';
 
-const socket = io('http://localhost:3001'); // or your live server URL
+const socket = io('https://perception-server.onrender.com');
 
 function App() {
-  // ✅ Block back/forward buttons during gameplay
   useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
       e.preventDefault();
-      window.history.go(1); // forces user back to current page
+      window.history.go(1);
     };
 
     window.addEventListener('popstate', handlePopState);
